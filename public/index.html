@@ -48,8 +48,37 @@
         </div>
     </section>
     <section id="todoApp" class="hidden">
-       <h2 id="loginTitle"></h2>
-       <button id="logoutBtn">logout</button>
+        <header>
+            <h2 id="loginTitle"></h2>
+            <button id="logoutBtn">logout</button>
+        </header>
+        <main>
+            <div>
+                <h3>Add todo</h3>
+                <form id="addFormTodo">
+                    <input required name="title" placeholder="title">
+                    <select name="completed" >
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                    </select>
+                    <button type="reset">reset</button>
+                    <button type="submit">add</button>
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>title</th>
+                        <th>completed</th>
+                        <th>options</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+        </main>
+
     </section>
     <footer>
         <p>

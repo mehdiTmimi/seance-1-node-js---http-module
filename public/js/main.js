@@ -1,4 +1,4 @@
-import { loginForm, loginTitle, logoutBtn, registerForm, urlApi } from "./config.js";
+import { addFormTodo, loginForm, loginTitle, logoutBtn, registerForm, tbody, urlApi } from "./config.js";
 import { checkAuth } from "./router.js";
 import { formToJson } from "./utils.js";
 
@@ -68,3 +68,46 @@ logoutBtn.addEventListener('click',async ()=>{
     window.location.hash=""
     checkAuth()
 })
+
+addFormTodo.addEventListener('submit',async (event)=>{
+    event.preventDefault();
+    const dataToSend=formToJson('addFormTodo');
+    const response = await fetch(urlApi+"todos",{
+        method:"POST",
+        body:JSON.stringify(dataToSend),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    })
+    if(!response.ok)
+        return alert("error")
+    const dataReceived=await response.json()
+    addTodoToTable(dataReceived)
+
+})
+
+export const addTodoToTable=(todo)=>{
+    const tr=document.createElement("tr")
+    const tdTitle=document.createElement("td")
+    const tdCompleted=document.createElement("td")
+    const tdOptions=document.createElement("td")
+    const btnDelete=document.createElement("button")
+
+    tr.appendChild(tdTitle)
+    tr.appendChild(tdCompleted)
+    tr.appendChild(tdOptions)
+    tdOptions.appendChild(btnDelete)
+
+    tdTitle.innerText=todo.title
+    tdCompleted.innerText=todo.completed
+    btnDelete.innerText="X";
+
+    btnDelete.addEventListener('click',async ()=>{
+        //TODO 
+         const response = await fetch(urlApi+"todos/"+todo._id,{method:"DELETE"})
+         if(response.ok)
+            return tr.remove();
+        alert("can't delete todo")
+    })
+    tbody.appendChild(tr)
+}

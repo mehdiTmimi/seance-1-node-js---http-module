@@ -31,7 +31,7 @@ router.post("/",async (req,res)=>{
     let data = {title,completed}
     let user = await User.findById(req.session.userId) 
     user.todos.push(data)
-    user.save().then(()=>res.json(user))
+    user.save().then((u)=>res.json(u.todos[u.todos.length-1]))
     .catch(err=>{
         res.status(500).json({message:"please try again later"})
         })

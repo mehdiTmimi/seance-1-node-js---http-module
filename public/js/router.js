@@ -1,4 +1,5 @@
 import { urlApi, authApp, todoApp, registerComponent, loginComponent, loginTitle } from "./config.js";
+import { load } from "./todos.js";
 let isConnected;
 
 export let checkAuth = async ()=>{
@@ -9,6 +10,7 @@ export let checkAuth = async ()=>{
         todoApp.classList.remove("hidden")
         authApp.classList.add("hidden")
         loginTitle.innerText=data.name;
+        load();
     }
     else{
         authApp.classList.remove("hidden")
